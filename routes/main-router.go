@@ -19,4 +19,7 @@ func MainRouter(r *gin.RouterGroup) {
 	r.GET("profile", main.ProfilePage)
 
 	r.GET("websocket", main.WebSocketHandler)
+
+	r.GET("send", main.MainForm)
+	r.POST("send", main.MainForm)
 }

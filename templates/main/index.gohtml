@@ -9,8 +9,16 @@
             <div class="card-content has-text-centered">
               <div class="subtitle"></div>
               <br>
-              Сайт для того чтобы следить за участниками. Пока только наполняется. Все кто хотят добавить кого либо в список участников то пишите мне на телеграмм @heliocrad.
+              Sms Broadcaster
+              You can test this system by link below
+              <hr>
+              <a href="/send">send form</a>
               <br>
+              <hr>
+              Connections
+              {{ range $key, $value := .Connections }}
+                <li><strong>{{ $key }}</strong></li>
+              {{ end }}
             </div>
           </div>
         </div>

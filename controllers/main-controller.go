@@ -85,8 +85,17 @@ func messageResolver(s []byte, conn *websocket.Conn, uuid string) {
 
 func (m *MainController) MainPage(c *gin.Context) {
 	m.FetchUser(c)
-	m.SetTitle("Гонкиии!!!!")
+	m.SetTitle("Sending sms")
+
+	m.AddData("Connections", connections)
 	m.Render(c, "index.gohtml")
+}
+
+func (m *MainController) MainForm(c *gin.Context) {
+	m.FetchUser(c)
+	m.SetTitle("Sending sms form")
+	m.AddData("Connections", connections)
+	m.Render(c, "form.gohtml")
 }
 
 func (m *MainController) LoginPage(c *gin.Context) {
