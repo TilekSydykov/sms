@@ -1,7 +1,10 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
+	"net/http"
 	"solar-faza/entity"
 	"solar-faza/repository"
 	"solar-faza/utils"
@@ -10,6 +13,74 @@ import (
 
 type MainController struct {
 	BasicController
+}
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
+}
+
+type Message struct {
+	Type string `json:"type"`
+	Data string `json:"data"`
+}
+
+type Connection struct {
+	Conn *websocket.Conn
+}
+
+var connections map[string]Connection
+
+func init() {
+	connections = make(map[string]Connection)
+}
+
+func (m *MainController) WebSocketHandler(c *gin.Context) {
+	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		return
+	}
+
+	// user connected
+	uuids := c.Request.URL.Query()["uuid"]
+	if len(uuids) < 1 {
+		return
+	}
+	var uuid = uuids[0]
+	connections[uuid] = Connection{conn}
+
+	for {
+		_, p, err := conn.ReadMessage()
+
+		if err != nil {
+			if _, ok := connections[uuid]; ok {
+				delete(connections, uuid)
+			}
+			return
+		}
+
+		messageResolver(p, conn, uuid)
+	}
+
+}
+
+func messageResolver(s []byte, conn *websocket.Conn, uuid string) {
+	var m Message
+	err := json.Unmarshal(s, &m)
+	if err != nil {
+		print(err)
+	}
+
+	switch m.Type {
+	case "test":
+		err := conn.WriteJSON(Message{Type: "test", Data: "ok"})
+		if err != nil {
+			return
+		}
+	}
 }
 
 func (m *MainController) MainPage(c *gin.Context) {

@@ -3,7 +3,6 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"solar-faza/controllers"
-	"solar-faza/routes/front"
 	"solar-faza/routes/midlewares"
 )
 
@@ -18,5 +17,6 @@ func MainRouter(r *gin.RouterGroup) {
 	r.GET("logout", main.LogOut)
 	r.POST("register", main.RegisterPost)
 	r.GET("profile", main.ProfilePage)
-	front.ParticipantRouter(r.Group("participants"))
+
+	r.GET("websocket", main.WebSocketHandler)
 }
