@@ -1,0 +1,7 @@
+{{ define "alert-message" }}
+    {{ if .Message }}
+        <div class="notification is-link" role="alert">
+            {{ .Message }}
+        </div>
+    {{ end }}
+{{ end }}

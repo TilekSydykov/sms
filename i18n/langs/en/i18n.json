@@ -1,0 +1,7 @@
+{
+  "lang": "English",
+  "auth": {
+    "register": "Sign Up",
+    "login": "Sign In"
+  }
+}

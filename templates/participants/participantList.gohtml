@@ -1,0 +1,29 @@
+{{ define "participantsList" }}
+    {{ if .Participants }}
+        {{ range .Participants  }}
+          <div class="card book-item">
+            <div>
+              <div class="right">
+                <span class="tag is-info">
+                    {{ shorten_number .Views }}&nbsp;
+                    <i class="far fa-eye small"></i>
+                  </span>
+              </div>
+              <span>
+              <a class="no-link" href="/participants/{{ .Id }}">
+                <div class="icon-text">
+                <span>T{{ .Id }} | {{ .Title }}</span>
+              </div>
+              </a>
+            </span>
+            </div>
+            <div class="has-text-grey">
+              <small style="font-size: 10px">Создан: {{ time .CreatedAt }}</small>
+            </div>
+          </div>
+        {{ end }}
+    {{ end }}
+    {{ if eq (len .Participants) 0 }}
+      <span>Пока нет участников</span>
+    {{ end }}
+{{ end }}

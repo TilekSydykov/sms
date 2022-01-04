@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{ template "head" . }}
+<body>
+{{ template "header" . }}
+<div class="container main" >
+  {{ template "alert-message" . }}
+  <div class="card">
+    <div class="card-content">
+      <h1 class="subtitle">Регистрация</h1>
+      <form action="/register" method="post">
+        <label for="email_reg" class="label" >Почта</label>
+        <div class="control">
+          <input type="text" class="input" id="email_reg" name="email_reg">
+        </div>
+        <label for="password" class="label">Пароль</label>
+        <div class="control">
+          <input type="password" class="input" id="password" name="password_reg">
+        </div>
+        <br>
+        <div class="control">
+          <button type="submit" class="button is-primary">Зарегистрироваться</button>
+        </div>
+      </form>
+      <br>
+      <a href="/login">Вход</a>
+    </div>
+  </div>
+
+</div>
+{{ template "footer" . }}
+</body>
+</html>

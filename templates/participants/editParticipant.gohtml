@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+{{ template "head" . }}
+<body>
+{{ template "header" . }}
+<div class="container main" >
+    {{ template "alert-message" . }}
+    <div class="card">
+        <div class="card-content">
+            <span class="right">
+                <a class="button" href="/participants/{{ .Participant.Id }}">
+                    Просмотр
+                </a>
+            </span>
+            <h2 class="subtitle">Редактирование</h2>
+            <form action="/participants/{{ .Participant.Id }}/edit" method="post">
+                <label for="static" class="label">Название</label>
+                <div class="control">
+                    <input type="text" class="input" id="static" name="title" placeholder="Название"
+                           value="{{ .Participant.Title }}">
+                </div>
+                <label for="static1" class="label">Описание</label>
+                <div class="control">
+                    <textarea class="textarea" id="static1" rows="10" name="desc"
+                              placeholder="Описание">{{ html .Participant.Desc }}</textarea>
+                </div>
+                <br>
+                <input class="checkbox" name="active" type="checkbox" {{ if .Participant.IsActive }} checked {{ end }}
+                       id="flexCheckDefault">
+                <label for="flexCheckDefault">
+                    Опубликован
+                </label>
+                <br><br>
+                <div class="control">
+                    <input name="submit" value="Сохранить" type="submit" class="button is-primary">
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+{{ template "footer" . }}
+</body>
+</html>

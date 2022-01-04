@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {{ template "head" . }}
+  <body>
+      {{ template "header" . }}
+      <div class="container main">
+        <div class="card-content">
+          <div class="card">
+            <div class="card-content">
+              Привет {{ .User.Email }}<br>
+              Мы рады что ты с нами!!! <br>
+              Пока страница в разработке
+              <hr>
+              <a href="/logout">Выйти из аккаунта</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ template "footer" . }}
+  </body>
+</html>
