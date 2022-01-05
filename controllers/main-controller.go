@@ -106,6 +106,7 @@ func (m *MainController) MainForm(c *gin.Context) {
 			Data: gin.H{
 				"number": c.PostForm("number"),
 				"text":   c.PostForm("text"),
+				"uid":    "123",
 			},
 		})
 		if err != nil {
