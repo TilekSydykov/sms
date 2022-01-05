@@ -24,8 +24,8 @@ var upgrader = websocket.Upgrader{
 }
 
 type Message struct {
-	Type string `json:"type"`
-	Data string `json:"data"`
+	Type string      `json:"type"`
+	Data interface{} `json:"data"`
 }
 
 type Connection struct {
@@ -103,7 +103,10 @@ func (m *MainController) MainForm(c *gin.Context) {
 	if c.PostForm("send") == "send" {
 		err := connections[c.PostForm("uuid")].Conn.WriteJSON(Message{
 			Type: "message",
-			Data: c.PostForm("text"),
+			Data: gin.H{
+				"number": c.PostForm("number"),
+				"text":   c.PostForm("text"),
+			},
 		})
 		if err != nil {
 			m.AddData("errorMessage", "something went wrong")
