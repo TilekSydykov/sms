@@ -51,7 +51,12 @@ func (m *MainController) WebSocketHandler(c *gin.Context) {
 	}
 	var uuid = uuids[0]
 	connections[uuid] = Connection{conn}
-
+	defer func(conn *websocket.Conn) {
+		err := conn.Close()
+		if err != nil {
+			println("!!!!!!!close error!!!!!!!!!")
+		}
+	}(conn)
 	for {
 		_, p, err := conn.ReadMessage()
 
@@ -95,6 +100,15 @@ func (m *MainController) MainForm(c *gin.Context) {
 	m.FetchUser(c)
 	m.SetTitle("Sending sms form")
 	m.AddData("Connections", connections)
+	if c.PostForm("send") == "send" {
+		err := connections[c.PostForm("uuid")].Conn.WriteJSON(Message{
+			Type: "message",
+			Data: c.PostForm("text"),
+		})
+		if err != nil {
+			m.AddData("errorMessage", "something went wrong")
+		}
+	}
 	m.Render(c, "form.gohtml")
 }
 
