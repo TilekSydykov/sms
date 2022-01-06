@@ -19,6 +19,9 @@ func MainRouter(r *gin.RouterGroup) {
 	r.GET("profile", main.ProfilePage)
 
 	r.GET("websocket", main.WebSocketHandler)
+	r.GET("dashboard", main.Dashboard)
+	r.GET("tokens", main.Tokens)
+	r.GET("history", main.History)
 
 	r.GET("send", main.MainForm)
 	r.POST("send", main.MainForm)

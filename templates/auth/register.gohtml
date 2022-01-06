@@ -2,32 +2,33 @@
 <html lang="ru">
 {{ template "head" . }}
 <body>
-{{ template "header" . }}
-<div class="container main" >
+
+<div class="login-card" >
   {{ template "alert-message" . }}
   <div class="card">
     <div class="card-content">
-      <h1 class="subtitle">Регистрация</h1>
+      <h3 class="subtitle">Sign up</h3>
       <form action="/register" method="post">
-        <label for="email_reg" class="label" >Почта</label>
+        <label for="email_reg" class="label" ></label>
         <div class="control">
-          <input type="text" class="input" id="email_reg" name="email_reg">
+          <input type="text" class="input" id="email_reg" name="email_reg" placeholder="email@example.com">
         </div>
-        <label for="password" class="label">Пароль</label>
+        <label for="password" class="label"></label>
         <div class="control">
-          <input type="password" class="input" id="password" name="password_reg">
+          <input type="password" class="input" id="password" name="password_reg" placeholder="*******">
+        </div>
+        <div class="control">
+          <input type="password" class="input" id="password" name="password_reg_again" placeholder="password comfirm">
         </div>
         <br>
         <div class="control">
-          <button type="submit" class="button is-primary">Зарегистрироваться</button>
+          <button type="submit" class="primary-button">Sign Up</button>
         </div>
       </form>
       <br>
-      <a href="/login">Вход</a>
+      If you have an account <a href="/login">Sign in</a>
     </div>
   </div>
-
 </div>
-{{ template "footer" . }}
 </body>
 </html>

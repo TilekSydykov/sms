@@ -43,9 +43,4 @@ func SetupDB(db *gorm.DB) {
 		fmt.Println(err)
 		panic("Can't migrate database")
 	}
-	createInitialComment(db)
-}
-
-func createInitialComment(db *gorm.DB) {
-	db.Raw("INSERT INTO \"chapter_comments\" (\"id\") VALUES ('0');").Scan(nil)
 }

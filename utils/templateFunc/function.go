@@ -23,7 +23,7 @@ func noescape(str string) template.HTML {
 }
 
 func timeFormat(t time.Time) string {
-	return t.Format("02/01/2006 15:01")
+	return t.Format("02.01.2006 15:04")
 }
 
 func inc(i int) int {

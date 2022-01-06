@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  {{ template "head" . }}
+  <body>
+      {{ template "header" . }}
+      <div class="container main">
+        <div class="card-content">
+          <div class="card">
+            <div class="card-content has-text-centered">
+              All messages
+              <hr>
+              <table style="width: 100%">
+                <thead style="border-bottom: #acacac 1px solid">
+                  <tr style="border-bottom: #acacac 1px solid">
+                    <th scope="col">id</th>
+                    <th>Phone number</th>
+                    <th>Content</th>
+                    <th>Length</th>
+                    <th>Sent</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{ range $val := .Messages }}
+                  <tr  scope="row" style="border-bottom: #acacac 1px solid">
+                    <td>
+                      {{ $val.Id }}
+                    </td>
+                    <td>
+                      {{ $val.Number }}
+                    </td>
+                    <td>
+                      {{ $val.Text }}
+                    </td>
+                    <td>
+                      {{ len $val.Text }}
+                    </td>
+                    <td>
+                      {{ time $val.UpdatedAt }}
+                    </td>
+                    <td>
+                      {{ $val.Send }}
+                    </td>
+                  </tr>
+                {{end}}
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ template "footer" . }}
+  </body>
+</html>

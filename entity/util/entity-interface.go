@@ -9,5 +9,6 @@ var Entities = func() []interface{} {
 		&entity.Participant{},
 		&entity.Post{},
 		&entity.PostComment{},
+		&entity.Message{},
 	)
 }

@@ -1,73 +1,39 @@
 {{ define "header" }}
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" id="sideBarTogler" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/">
-        Home
-      </a>
-      <a class="navbar-item" href="/send">
-        Send
-      </a>
-    </div>
-    <div class="navbar-end">
-      <div class="navbar-item">
-        {{ if .User }}
-          <a class="button is-light" href="/profile">{{ .T.ProfileIndex }}</a>
-        {{ else }}
-          <div class="buttons">
-            <a class="button is-primary" href="/register">
-              <strong>{{ .T.AuthRegister }}</strong>
-            </a>
-            <a class="button is-light" href="/login">
-                {{ .T.AuthLogin }} </a>
-          </div>
-        {{ end }}
+<div class="header">
+  <a href="/logout" class="logout">
+    <img src="/assets/logout.svg" alt="logout">
+  </a>
+</div>
+<div class="sidebar">
+  <div class="logo">SMS Broadcast</div>
+  <div class="profile">
+    <div class="profile_avatar"></div>
+    <div class="profile_info">
+      <div class="profile_name">
+        {{ .User.Email }}
+      </div>
+      <div class="profile_email">
+        {{ .User.Email }}
       </div>
     </div>
   </div>
-</nav>
-<div id="sideNavBar" class="sidebar hide-sidebar">
-  <div>
-    <a role="button" class="navbar-burger" id="sideBarToglerClose" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="menu">
-    <ul class="menu-list">
-      <li><a class="navbar-item" href="/">
-          Home
-        </a>
+  <div class="list">
+    <ul>
+      <li>
+        <a href="/dashboard"><img src="/assets/dashboard.svg"/> Dashboard</a>
       </li>
       <li>
-        <a class="navbar-item" href="/send">
-          send form
-        </a>
+        <a href="/tokens"><img src="/assets/sec.svg"/> Tokens</a>
       </li>
-        {{ if .User }}
-          <li>
-            <a class="button is-light" href="/profile">{{ .T.ProfileIndex }}</a>
-          </li>
-        {{ else }}
-          <li class="card-content">
-            <div class="buttons">
-              <a class="button is-primary" href="/register">
-                <strong>{{ .T.AuthRegister }}</strong>
-              </a>
-
-              <a class="button is-light" href="/login">
-                  {{ .T.AuthLogin }} </a>
-            </div>
-          </li>
-        {{ end }}
+      <li>
+        <a href="/history"><img src="/assets/history.svg"/> History</a>
+      </li>
+      <li>
+        <img src="/assets/payments.svg"/> Payments
+      </li>
+      <li>
+        <img src="/assets/sandbox.svg"/> Sandbox
+      </li>
     </ul>
   </div>
 </div>

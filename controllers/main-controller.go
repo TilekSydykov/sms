@@ -85,6 +85,11 @@ func messageResolver(s []byte, conn *websocket.Conn, uuid string) {
 		if err != nil {
 			return
 		}
+	case "delivered":
+		err := conn.WriteJSON(Message{Type: "delivered", Data: "ok"})
+		if err != nil {
+			return
+		}
 	}
 }
 
@@ -96,17 +101,41 @@ func (m *MainController) MainPage(c *gin.Context) {
 	m.Render(c, "index.gohtml")
 }
 
+func (m *MainController) Dashboard(c *gin.Context) {
+	m.FetchUser(c)
+	m.SetTitle("Sending sms")
+	m.Render(c, "dashboard.gohtml")
+}
+
+func (m *MainController) Tokens(c *gin.Context) {
+	m.FetchUser(c)
+	m.SetTitle("Sending sms")
+	m.Render(c, "tokens.gohtml")
+}
+
+func (m *MainController) History(c *gin.Context) {
+	m.FetchUser(c)
+	m.SetTitle("Sending sms")
+	m.AddData("Messages", repository.NewMessageRepository().All())
+	m.Render(c, "history.gohtml")
+}
+
 func (m *MainController) MainForm(c *gin.Context) {
 	m.FetchUser(c)
 	m.SetTitle("Sending sms form")
 	m.AddData("Connections", connections)
 	if c.PostForm("send") == "send" {
+		message := repository.NewMessageRepository().Create(&entity.Message{
+			Number: c.PostForm("number"),
+			Text:   c.PostForm("text"),
+			Send:   false,
+		})
 		err := connections[c.PostForm("uuid")].Conn.WriteJSON(Message{
 			Type: "message",
 			Data: gin.H{
 				"number": c.PostForm("number"),
 				"text":   c.PostForm("text"),
-				"sms_id": 123,
+				"sms_id": message.Id,
 			},
 		})
 		if err != nil {
